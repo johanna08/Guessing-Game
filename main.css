@@ -1,0 +1,52 @@
+.demo-layout-transparent {
+  background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url('images/numbers.jpg') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: black;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-left: 200px;
+  padding-right: 200px;
+  flex-direction: column;
+}
+.mdl-layout__header-row .mdl-navigation__link {
+  font-size: 50px;
+  font-weight: 800;
+  color: #005eff;
+  font-family: Questrial;
+}
+
+h1 {
+  color: #005eff;
+  font-family: Questrial;
+}
+
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 100px;
+  width: 400px;
+}
+
+
+
+
+.input-group {
+	height: 200px;
+	width: 200px;
+}
+
+.mdl-textfield__input {
+  border: 1px solid rgba(0,0,0,.12);
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
