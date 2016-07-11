@@ -16,7 +16,16 @@ function generateWinningNumber(){
 
 winningNumber = generateWinningNumber();
 
+// Fetch the Players Guess
+$('.submit-js').on('click', playersGuessSubmission);
 
+function playersGuessSubmission(){
+	playersGuess = +$('#guess').val();
+  	//remove playersGuess data
+  	$('#guess').val('');
+  	//need to make it not end game on 2 submit button presses
+  	checkGuess();
+}
 // Determine if the next guess should be a lower or higher number
 
 function lowerOrHigher(){
@@ -60,8 +69,12 @@ function checkGuess(){
 	}
 	// player used all guess attempts, the game is over, Play Again button
 	else if (guesses[0] === 0) {
+		//add Sad giphy for losing on form, play again
+		//append not working for gif...
 		$('h1').text("YOU LOSE!!");
-    	$('.guesses_left').find('p').text("Guesses all used up =( Play Again!");
+		//('h1').append('<iframe src="//giphy.com/embed/Uyl1VRmBCPir6" width="480" height="252" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>');
+    	$('h1').append('<img src= images/unhappy-coffee.jpg />');
+    	$('.guesses_left').find('p').text("Guesses all used up. Play Again!");
 		$('form').remove();
 		$('.submit-js').remove();
 		$('.hint-js').remove();
@@ -72,14 +85,13 @@ function checkGuess(){
 }
 
 function playerWon(){
-	$('h1').text("YOU WON!!");
+	//add Fun pic or giphy for winning
+	$('h1').text("YAY YOU WON!!");
+	$('h1').append('<img src= images/happy-coffee.jpg />');
 	$('form').remove();
 	$('.submit-js').remove();
 	$('.guesses_left').remove();
 	$('.hint-js').remove();
-	//add Fun pic or giphy for winning
-	//var winnerPic = $('<img>FUN PIC OR GIPHY</img>');
-	//$('.h1').append(winnerPic);
 }
 
 
@@ -97,23 +109,10 @@ function provideHint(){
 $('.play-js').on('click', playAgain);
 
 function playAgain(){
-	//add Sad giphy for losing on form, play again
-	//var winnerPic = $('<img>FUN PIC OR GIPHY</img>');
-	//$('.h1').append(winnerPic);
 	location.reload();
 }
 
 /* **** Event Listeners/Handlers ****  */
-// Fetch the Players Guess
-$('.submit-js').on('click', playersGuessSubmission);
-
-function playersGuessSubmission(){
-	playersGuess = +$('#guess').val();
-  	//remove playersGuess data
-  	$('#guess').val('');
-  	//need to make it not end game on 2 submit button presses
-  	checkGuess();
-}
 
 $('#guess').on('keypress', pressedEnter);
 

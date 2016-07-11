@@ -60,3 +60,10 @@ h1 {
 .guesses_left {
   padding-top: 10px;
 }
+
+h1 img {
+  display: block;
+  text-align: center;
+  max-height: 400px;
+  max-width: 400px;
+}
