@@ -17,13 +17,15 @@
   flex-direction: column;
 }
 .mdl-layout__header-row .mdl-navigation__link {
+  background-color: #F9F9FF;
+  color: #005eff;
   font-size: 50px;
   font-weight: 800;
-  color: #005eff;
   font-family: Questrial;
 }
 
 h1 {
+  background-color: #F9F9FF;
   color: #005eff;
   font-family: Questrial;
 }
@@ -36,9 +38,6 @@ h1 {
   width: 400px;
 }
 
-
-
-
 .input-group {
 	height: 200px;
 	width: 200px;
@@ -49,4 +48,11 @@ h1 {
   font-size: 40px;
   text-align: center;
   background: white;
+}
+
+.guesses_left p{
+  background-color: #F9F9FF;
+  color: #005EFF;
+  font-size: 20px;
+  font-style: italic;
 }
