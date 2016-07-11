@@ -3,15 +3,15 @@
 //this should eliminate the vars as global, now they are wrapped in doc ready function
 
 $(document).ready(function() {
-var playersGuess,
-    winningNumber;
-    guesses = [10];
+	var playersGuess,
+	    winningNumber,
+	    guesses = [10];
 /* **** Guessing Game Functions **** */
 
 // Generate the Winning Number
 
 function generateWinningNumber(){
-	return Math.floor((Math.random() * 10) + 1);
+	return Math.floor((Math.random() * 100) + 1);
 }
 
 winningNumber = generateWinningNumber();
@@ -20,79 +20,97 @@ winningNumber = generateWinningNumber();
 // Determine if the next guess should be a lower or higher number
 
 function lowerOrHigher(){
-	//var price = $('<p>From $399.99</p>');
-	//myVar.appendTo($(element));
-	var howClose = $('.container h1');
-	// var howClose.appendTo($('h2')); 
-    if (winningNumber === playerGuess) {
-    	howClose.css({"display" : "none"});
-    }
-    else if (winningNumber > playersGuess) {
-    	howClose.text("Aim Higher");
-    }
-    else {howClose.text("Aim Lower");
+	if (playersGuess > winningNumber){
+		if ((playersGuess - winningNumber) > 20) {
+			return "Your guess is Higher and more than 20 digits away from the Winning Number! ";
+		}else {
+			return "Your guess is Higher than the answer! ";
+		} 
+	} 
+	else if(playersGuess < winningNumber){
+		if ((winningNumber - playersGuess) > 20) {
+			return "Your guess is Lower and more than 20 digits away from the Winning Number! ";
+		}else {
+			return "Your guess is Lower than the answer! ";
+		} 
 	}
+}	
+
+function guessMessage(){
+	var string;
+	//this # has been guessed
+	if ( guesses[playersGuess] === true ) { 
+		$('.guesses_left').find('p').text("That number has already been guessed." + "You still have " + guesses[0] + " guesses left ");
+	} 
+	else {
+	//this number has not been guessed
+		guesses[playersGuess] = true;
+      	guesses[0]--;
+		string = $('.guesses_left').find('p').text("Try again! " + lowerOrHigher() + "You have " + guesses[0] + " guesses left ");
+	}
+	return string;
 }
 
 // Check if the Player's Guess is the winning number 
 
 function checkGuess(){
-	if ( winningNumber === playersGuess ){
+	// player guessed correct number, game over, player won
+	if ( playersGuess === winningNumber ){
 		playerWon();
 	}
-	else if (guesses[playersGuess] === true) {
-      // this number has already been guessed
-      $('.guesses_left').find('p').text("That number has already been guessed." + "\n" + "You have " + guesses[0] + " guesses left ");
-    }
-    else {
-      // this number has not been guessed
-      guesses[playersGuess] = true;
-      guesses[0]--;
-      $('.guesses_left').find('p').text("You have " + guesses[0] + " guesses left ");
-    }
-    // user used all guess attempts, the game is over, Play Again button
-    // if (guesses[0] === 0) {
-    // 	$('.guesses_left').find('p').text("Guesses all used up, Play Again!");
-    // }
-    // else {
-    //   lowerOrHigher();
-    //   updateTemperature();
-    // }
-  }
-
-function playerWon(won){
-	if (won){
-		$('h1').text("YOU WON!!");
+	// player used all guess attempts, the game is over, Play Again button
+	else if (guesses[0] === 0) {
+		$('h1').text("YOU LOSE!!");
+    	$('.guesses_left').find('p').text("Guesses all used up =( Play Again!");
 		$('form').remove();
-		$('.button').remove();
-		$('.guesses_left').remove();
-	}
-    else {
-    	playerLost();
+		$('.submit-js').remove();
+		$('.hint-js').remove();
     }
-		playAgain();
+	else {
+		guessMessage();
+	}
 }
-// Create a provide hint button that provides additional clues to the "Player"
 
+function playerWon(){
+	$('h1').text("YOU WON!!");
+	$('form').remove();
+	$('.submit-js').remove();
+	$('.guesses_left').remove();
+	$('.hint-js').remove();
+	//add Fun pic or giphy for winning
+	//var winnerPic = $('<img>FUN PIC OR GIPHY</img>');
+	//$('.h1').append(winnerPic);
+}
+
+
+// Create a provide hint button that provides additional clues to the "Player"
+$('.hint-js').on('click', provideHint);
+//Winning Number = 88
+//DOM Message: "One of these values is the winning number, [22,33,88]", submit a guess!"
 function provideHint(){
-	// add code here
+	var randomNum1 = Math.floor((Math.random() * 100) + 1);
+	var randomNum2 = Math.floor((Math.random() * 100) + 1);
+	$('.guesses_left p').text("One of these values is the winning number [" +randomNum1+" , "+winningNumber+" , "+randomNum2+ "] Submit a guess!");
 }
 
 // Allow the "Player" to Play Again
+$('.play-js').on('click', playAgain);
 
 function playAgain(){
-	// add code here
+	//add Sad giphy for losing on form, play again
+	//var winnerPic = $('<img>FUN PIC OR GIPHY</img>');
+	//$('.h1').append(winnerPic);
+	location.reload();
 }
-
 
 /* **** Event Listeners/Handlers ****  */
 // Fetch the Players Guess
 $('.submit-js').on('click', playersGuessSubmission);
 
 function playersGuessSubmission(){
-	playersGuess = +document.getElementById('guess').value;
+	playersGuess = +$('#guess').val();
   	//remove playersGuess data
-  	document.getElementById('guess').value = "";
+  	$('#guess').val('');
   	//need to make it not end game on 2 submit button presses
   	checkGuess();
 }
@@ -107,5 +125,4 @@ function pressedEnter(event) {
 }
 
 });
-
 
