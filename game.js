@@ -86,7 +86,7 @@ function checkGuess(){
 
 function playerWon(){
 	//add Fun pic or giphy for winning
-	$('h1').text("YAY YOU WON!!");
+	$('h1').text("YOU WON!!");
 	$('h1').append('<img src= images/happy-coffee.jpg />');
 	$('form').remove();
 	$('.submit-js').remove();
