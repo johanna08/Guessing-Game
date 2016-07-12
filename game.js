@@ -1,6 +1,6 @@
 /* **** Global Variables **** */
 // try to elminate these global variables in your project, these are here just to start.
-//this should eliminate the vars as global, now they are wrapped in a function, then called to run
+//this should eliminate the vars as global, now they are wrapped in a function, then called to
 function runGuessingGame() { 
 	$(document).ready(function() {
 		var playersGuess,
